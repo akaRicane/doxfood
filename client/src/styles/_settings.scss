@@ -99,3 +99,8 @@ a:visited {
         @include centered;
     }
 }
+
+.leaflet-container {
+    width: 100%;
+    height: 100%;
+  }

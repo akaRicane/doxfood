@@ -2,6 +2,8 @@ import React from 'react';
 import axios from 'axios';
 import Dropdown from './Dropdown';
 
+import Map from '../Components/Map';
+
 const Finder = () => {
 
     const [foundSpots, setFoundSpots] = React.useState([])
@@ -61,6 +63,14 @@ const Finder = () => {
                 <table>
                     <tbody>
                         <tr>
+                            <td>
+                                <h3>Where to eat ?</h3>
+                            </td>
+                            <td>
+                                <button onClick={() => { handleFindBtn() }}>Find</button>
+                            </td>
+                        </tr>
+                        <tr>
                             <td>Food</td>
                             <td>
                                 <Dropdown
@@ -93,33 +103,18 @@ const Finder = () => {
                                 />
                             </td>
                         </tr>
+                        <td><h3>Results</h3></td>
+                        {
+                            foundSpots.map(spot => {
+                                return (
+                                    <tr><td>{spot.name}</td></tr>
+                                )
+                            })
+                        }
                     </tbody>
                 </table>
             </div>
-            <div className='col'>
-                <table>
-                    <tbody>
-                        <tr>
-                            <td>
-                                <h3>Where to eat ?</h3>
-
-                            </td>
-                        </tr>
-                <ul>
-                    {
-                        foundSpots.map(spot => {
-                            return (
-                                <li>{spot.name}</li>
-                            )
-                        })
-                    }
-                </ul>
-                    </tbody>
-                </table>
-            </div>
-            <div>
-                <button onClick={() => { handleFindBtn() }}>Find</button>
-            </div>
+            <Map />
         </div>
     );
 };
