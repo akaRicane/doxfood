@@ -9,7 +9,7 @@ const NewRestaurant = () => {
         var alertStr = "You're about to make a new entry !";
         alertStr += "\nname : " + newEntry.name;
         alertStr += "\nfood : " + newEntry.food;
-        alertStr += "\nvege : " + newEntry.vege;
+        alertStr += "\nvege : " + newEntry.isVege;
         alertStr += "\nprice : " + newEntry.price;
         alertStr += "\ndistance : " + newEntry.distance;
         alertStr += "\nrate : " + newEntry.rate;

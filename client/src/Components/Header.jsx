@@ -14,9 +14,6 @@ const Header = () => {
                 <NavLink to='/list'>
                     <span>📚</span>
                 </NavLink>
-                <NavLink to='/edit'>
-                    <span>⚙️</span>
-                </NavLink>
                 <NavLink to='/new'>
                     <span>🧑‍🍳</span>
                 </NavLink>

@@ -2,13 +2,6 @@ import React from 'react';
 import Dropdown from './Dropdown';
 
 const Create = ({ handleSubmitNewSpot }) => {
-
-    const [address, setAddress] = React.useState({
-        streetNum: "24",
-        street: "Quai Alphonse Le Gallo",
-        city: "Boulogne-Billancourt"
-    });  // inputs
-
     /* -------------------------------------------------------------------------- */
     /*                                   FIELDS                                   */
     /* -------------------------------------------------------------------------- */
@@ -27,7 +20,7 @@ const Create = ({ handleSubmitNewSpot }) => {
         { "label": "Chinese", "value": "Chinese" },
         { "label": "Thaï", "value": "Thaï" },
     ];
-    const [isVege, setIsVege] = React.useState(false);  // dropdown t/f
+    const [isVege, setIsVege] = React.useState("false");  // dropdown t/f
     /* ---------------------------------- price --------------------------------- */
     const [price, setPrice] = React.useState(10);  // slider
     /* --------------------------------- rating --------------------------------- */
@@ -40,7 +33,12 @@ const Create = ({ handleSubmitNewSpot }) => {
         { "label": "☆★★★★", "value": "☆★★★★" },
         { "label": "★★★★★", "value": "★★★★★" },
     ];
-
+    /* --------------------------------- address -------------------------------- */
+    const [address, setAddress] = React.useState({
+        streetNum: "24",
+        street: "Quai Alphonse Le Gallo",
+        city: "Boulogne-Billancourt"
+    });  // inputs
 
     React.useEffect(() => {
     }, [])
@@ -49,7 +47,16 @@ const Create = ({ handleSubmitNewSpot }) => {
     /*                                   EVENTS                                   */
     /* -------------------------------------------------------------------------- */
     const handleNameInput = (event) => { setNameInput(event.target.value); console.log("Name -> " + event.target.value); }
-    const handleIsVegeInput = () => { setIsVege(!isVege); console.log("Vege -> " + !isVege); }
+    const handleIsVegeInput = () => {
+        if (isVege === "true") {
+            setIsVege("false");
+            console.log("Vege -> false");
+        }
+        else {
+            setIsVege("true");
+            console.log("Vege ->  true");
+        }
+    };
     const handleFoodDP = (event) => { setFood(event.target.value); console.log("Choice -> " + event.target.value); };
     const handlePriceInput = (event) => { setPrice(event.target.value); console.log("Price -> " + event.target.value); }
     const handleDistanceInput = (event) => { setDistance(event.target.value); console.log("Distance -> " + event.target.value); }
@@ -81,12 +88,13 @@ const Create = ({ handleSubmitNewSpot }) => {
         const newEntry = {
             name: nameInput,
             food: food,
-            vege: isVege,
+            isVege: isVege,
             price: price,
             distance: distance,
             rate: rate,
             address: address
         }
+        console.log(newEntry)
         handleSubmitNewSpot(newEntry);
     }
     /* -------------------------------------------------------------------------- */

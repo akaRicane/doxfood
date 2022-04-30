@@ -14,7 +14,7 @@ const PORT = 3001;
 APP.get("/", (req, res) => { console.log(req); res.send("This is from express"); });
 
 APP.get("/create", (req, res) => {
-    const spot = req.query["spot"]
+    const spot = JSON.parse(req.query["spot"]);
     console.log(spot);
     const timestamp = Date.now();
     restaurantsdb.insert({ "timestamp": timestamp, "restaurant": spot });
@@ -28,6 +28,35 @@ APP.get("/list", (req, res) => {
             const restaurantsList = docs;
             console.log("Restaurantsdb loading is done ! (found: " + restaurantsList.length + ")\n");
             res.json({ "list": restaurantsList });
+        }
+    })
+});
+
+APP.get("/edit", (req, res) => {
+    console.log("\nNew request to edit a restaurant");
+    const spotId = req.query["id"];
+    const spot = JSON.parse(req.query["spot"]);
+    console.log(spot)
+    const timestamp = Date.now();
+    restaurantsdb.update({ "_id": spotId}, {"timestamp": timestamp, "restaurant": spot }, {}, function (err, numReplaced) {
+        if (err) {
+            console.log(err)
+        }
+        else {
+            console.log(numReplaced)
+            res.json("Success");
+        }
+    });
+});
+
+APP.get("/fetch", (req, res) => {
+    console.log("\nNew request to fetch infos of a restaurant");
+    console.log('Fetching: ' + req.query["id"]);
+    restaurantsdb.find({ _id: req.query["id"]}, (err, docs) => {
+        if (docs.length !== 0) {
+            const infos = docs.at(-1);
+            console.log("Restaurant infos fetch is done ! (found: " + infos.restaurant.name + ")\n");
+            res.json(infos);
         }
     })
 });
