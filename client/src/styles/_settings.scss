@@ -1,0 +1,85 @@
+$white: #ddd;
+$black: #333;
+
+$color-home: #597DFF;
+$color-widget: #a8a8a7;
+$color-bgn: #435EBF;
+
+$dox-margin-pad: 0rem;
+
+html,
+body {
+    background-color: $black;
+    margin: $dox-margin-pad $dox-margin-pad $dox-margin-pad $dox-margin-pad;
+}
+
+a {
+    text-decoration: none;
+    color: $white;
+    cursor: pointer;
+}
+
+a:visited {
+    color: $white;
+}
+
+@mixin widget {
+    background-color: $color-widget;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+
+    .col {
+        @include centered;
+        min-width: 300px;
+    }
+}
+
+@mixin pages {
+    background-color: $color-home;
+    display: grid;
+    grid-template-rows: 2fr 5fr 1fr;
+    justify-content: center;
+
+    .text {
+        @include centered;
+    }
+    
+    .module {
+        @include widget;
+    }
+}
+
+@mixin centered {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.app {
+    display: grid;
+    grid-template-rows: 50px 1fr 50px;
+    width: 100vw;
+    min-height: 100vh;
+    color: $white;
+    background-color: $color-bgn;
+
+    .home, .new {
+        @include pages;
+    }
+
+}
+
+.header {
+    display: grid;
+    grid-template-columns: 5fr 1fr;
+
+    .text {
+        @include centered;
+    }
+}
+
+.footer {
+    .text {
+        @include centered;
+    }
+}

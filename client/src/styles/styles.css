@@ -1,0 +1,102 @@
+html,
+body {
+  background-color: #333;
+  margin: 0rem 0rem 0rem 0rem;
+}
+
+a {
+  text-decoration: none;
+  color: #ddd;
+  cursor: pointer;
+}
+
+a:visited {
+  color: #ddd;
+}
+
+.app {
+  display: -ms-grid;
+  display: grid;
+  -ms-grid-rows: 50px 1fr 50px;
+      grid-template-rows: 50px 1fr 50px;
+  width: 100vw;
+  min-height: 100vh;
+  color: #ddd;
+  background-color: #435EBF;
+}
+
+.app .home, .app .new {
+  background-color: #597DFF;
+  display: -ms-grid;
+  display: grid;
+  -ms-grid-rows: 2fr 5fr 1fr;
+      grid-template-rows: 2fr 5fr 1fr;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+}
+
+.app .home .text, .app .new .text {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+}
+
+.app .home .module, .app .new .module {
+  background-color: #a8a8a7;
+  display: -ms-grid;
+  display: grid;
+  -ms-grid-columns: 1fr 1fr;
+      grid-template-columns: 1fr 1fr;
+}
+
+.app .home .module .col, .app .new .module .col {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  min-width: 300px;
+}
+
+.header {
+  display: -ms-grid;
+  display: grid;
+  -ms-grid-columns: 5fr 1fr;
+      grid-template-columns: 5fr 1fr;
+}
+
+.header .text {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+}
+
+.footer .text {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+}
+/*# sourceMappingURL=styles.css.map */
