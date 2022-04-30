@@ -2,7 +2,7 @@ import React from 'react';
 
 const EditRestaurants = () => {
     return (
-        <div>
+        <div className='edit'>
             <h1>Edit Restaurants</h1>
         </div>
     );

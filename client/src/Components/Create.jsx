@@ -22,7 +22,10 @@ const Create = ({ handleSubmitNewSpot }) => {
         { "label": "Microwave", "value": "Microwave" },
         { "label": "Italian", "value": "Italian" },
         { "label": "Brasserie", "value": "Brasserie" },
-        { "label": "Burgers", "value": "Burgers" }
+        { "label": "Burgers", "value": "Burgers" },
+        { "label": "Japonese", "value": "Japonese" },
+        { "label": "Chinese", "value": "Chinese" },
+        { "label": "Thaï", "value": "Thaï" },
     ];
     const [isVege, setIsVege] = React.useState(false);  // dropdown t/f
     /* ---------------------------------- price --------------------------------- */

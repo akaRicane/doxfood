@@ -62,9 +62,25 @@ a:visited {
     min-height: 100vh;
     color: $white;
     background-color: $color-bgn;
-
-    .home, .new {
+    
+    .home, .new, .list, .edit {
         @include pages;
+    }
+    
+    .tile {
+        background-color: $color-widget;
+        display: grid;
+        grid-template-columns: 3fr 1fr 1fr;
+        height: 10vh;
+        max-height: 40px;
+        min-width: 85vw;
+        margin-top: 10px;
+        
+        .tile-text {
+            display: flex;
+            justify-content: center;
+            align-items: left;
+        }
     }
 
 }

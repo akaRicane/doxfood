@@ -10,20 +10,26 @@ import NotFound from "./Pages/NotFound";
 import Header from './Components/Header'
 import Footer from "./Components/Footer";
 
+const AppContext = React.createContext();
 const App = () => {
+
+  const [restaurantsList, setRestaurantsList] = React.useState([]);
+
   return (
     <div className="app">
       <Header />
-      <Routes>
-        <Route path='/' element={<Home />} />
-        <Route path='/new' element={<NewRestaurant />} />
-        <Route path='/edit' element={<EditRestaurants />} />
-        <Route path='/list' element={<ListRestaurants />} />
-        <Route path='*' element={<NotFound />} />
-      </Routes>
+      <AppContext.Provider value={{ restaurantsList, setRestaurantsList }}>
+        <Routes>
+          <Route path='/' element={<Home />} />
+          <Route path='/new' element={<NewRestaurant />} />
+          <Route path='/edit' element={<EditRestaurants />} />
+          <Route path='/list' element={<ListRestaurants />} />
+          <Route path='*' element={<NotFound />} />
+        </Routes>
+      </AppContext.Provider>
       <Footer />
     </div>
   );
 }
 
-export default App;
+export { App, AppContext};
