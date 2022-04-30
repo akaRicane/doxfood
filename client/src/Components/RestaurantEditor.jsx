@@ -139,10 +139,12 @@ const RestaurantEditor = ({ spot, handleSubmitEdittedSpot }) => {
                         <tr>
                             <td>Price</td>
                             <td><input type='range' min='5' max='100' onChange={(event) => handlePriceInput(event)} value={price}/></td>
+                            <td>{price} €</td>
                         </tr>
                         <tr>
                             <td>Distance</td>
                             <td><input type='range' min='0' max='30' onChange={(event) => handleDistanceInput(event)} value={distance}/></td>
+                            <td>{distance} min</td>
                         </tr>
                         <tr>
                             <td>Rate</td>

@@ -38,7 +38,7 @@ APP.get("/edit", (req, res) => {
     const spot = JSON.parse(req.query["spot"]);
     console.log(spot)
     const timestamp = Date.now();
-    restaurantsdb.update({ "_id": spotId}, {"timestamp": timestamp, "restaurant": spot }, {}, function (err, numReplaced) {
+    restaurantsdb.update({ "_id": spotId }, { "timestamp": timestamp, "restaurant": spot }, {}, function (err, numReplaced) {
         if (err) {
             console.log(err)
         }
@@ -52,11 +52,53 @@ APP.get("/edit", (req, res) => {
 APP.get("/fetch", (req, res) => {
     console.log("\nNew request to fetch infos of a restaurant");
     console.log('Fetching: ' + req.query["id"]);
-    restaurantsdb.find({ _id: req.query["id"]}, (err, docs) => {
+    restaurantsdb.find({ _id: req.query["id"] }, (err, docs) => {
         if (docs.length !== 0) {
             const infos = docs.at(-1);
             console.log("Restaurant infos fetch is done ! (found: " + infos.restaurant.name + ")\n");
             res.json(infos);
+        }
+    })
+});
+
+APP.get("/find", (req, res) => {
+    console.log("\nNew request to find spots");
+    const food = req.query["food"];
+    const price = req.query["price"];
+    const distance = req.query["distance"];
+    var findQuery = new Object();
+    if (food !== 'false') { findQuery['food'] = food }
+    if (price !== 'false') { findQuery['price'] = price }
+    if (distance !== 'false') { findQuery['distance'] = distance }
+    console.log(findQuery)
+
+    restaurantsdb.find({}, (err, docs) => {
+        if (docs.length !== 0) {
+            var foundSpots = [];
+            docs.forEach(doc => {
+                const spot = doc["restaurant"];
+                var keyCheck = [];
+                for (var [key, val] of Object.entries(findQuery)) {
+                    if (key === 'food' & spot[key] === findQuery[key]) {
+                        keyCheck.push(true)
+                    }
+                    else if (key === 'price' & spot[key] <= 10) {
+                        keyCheck.push(true)
+                    }
+                    else if (key === 'distance' & spot[key] <= 10) {
+                        keyCheck.push(true)
+                    }
+                }
+                if (keyCheck.length === Object.keys(findQuery).length) {
+                    console.log(spot.name)
+                    foundSpots.push(spot)
+                }
+            })
+            console.log("Finder done ! (found: " + foundSpots.length + ")\n");
+            res.json(foundSpots);
+        }
+        else {
+            console.log("None found")
         }
     })
 });

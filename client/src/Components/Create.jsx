@@ -8,7 +8,7 @@ const Create = ({ handleSubmitNewSpot }) => {
     /* ---------------------------------- name ---------------------------------- */
     const [nameInput, setNameInput] = React.useState("");
     /* -------------------------------- distance -------------------------------- */
-    const [distance, setDistance] = React.useState("1 min");  // slider
+    const [distance, setDistance] = React.useState("1");  // slider
     /* -------------------------------- food type ------------------------------- */
     const [food, setFood] = React.useState("Microwave");  // dropdown
     const foodOptions = [
@@ -127,10 +127,12 @@ const Create = ({ handleSubmitNewSpot }) => {
                         <tr>
                             <td>Price</td>
                             <td><input type='range' min='5' max='100' onChange={(event) => handlePriceInput(event)} /></td>
+                            <td>{price} €</td>
                         </tr>
                         <tr>
                             <td>Distance</td>
                             <td><input type='range' min='0' max='30' onChange={(event) => handleDistanceInput(event)} /></td>
+                            <td>{distance} min</td>
                         </tr>
                         <tr>
                             <td>Rate</td>
