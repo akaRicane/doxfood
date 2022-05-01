@@ -8,7 +8,6 @@ const Tile = ({ spot }) => {
 
     React.useEffect(() => {
         if (spot !== undefined) {
-            // console.log(spot)
             setSpotId(spot._id)
             const infos = spot.restaurant
             setSpotInfos(infos)

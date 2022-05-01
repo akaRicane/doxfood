@@ -15,9 +15,9 @@ const Finder = () => {
     const [priceChoice, setPriceChoice] = React.useState(DEFAULT_PRICE_CHOICE);
     const [distanceChoice, setDistanceChoice] = React.useState(DEFAULT_DISTANCE_CHOICE);
 
-    const handleFoodDP = (event) => { setFoodChoice(event.target.value); console.log("Food -> " + event.target.value); };
-    const handlePriceDP = (event) => { setPriceChoice(event.target.value); console.log("Price -> " + event.target.value); };
-    const handleDistanceDP = (event) => { setDistanceChoice(event.target.value); console.log("Distance -> " + event.target.value); };
+    const handleFoodDP = (event) => { setFoodChoice(event.target.value); };
+    const handlePriceDP = (event) => { setPriceChoice(event.target.value); };
+    const handleDistanceDP = (event) => { setDistanceChoice(event.target.value); };
     const handleFindBtn = () => { findSpots(foodChoice, priceChoice, distanceChoice, setFoundSpots); };
 
     return (
@@ -66,14 +66,18 @@ const Finder = () => {
                                 />
                             </td>
                         </tr>
-                        <td><h3>Results</h3></td>
-                        {
-                            foundSpots.map(spot => {
-                                return (
-                                    <tr><td>{spot.name}</td></tr>
-                                )
-                            })
-                        }
+                        <tr>
+                            <td><h3 className='text'>Results</h3></td>
+                        </tr>
+                        <tr>
+                            {
+                                foundSpots.map((spot, idx) => {
+                                    return (
+                                        <tr key={'finder-results-' + idx}><td>{spot.name}</td></tr>
+                                    )
+                                })
+                            }
+                        </tr>
                     </tbody>
                 </table>
             </div>

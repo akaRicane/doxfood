@@ -14,6 +14,7 @@ const PORT = 3001;
 APP.get("/", (req, res) => { console.log(req); res.send("This is from express"); });
 
 APP.get("/create", (req, res) => {
+    console.log("\nNew request to create an entry");
     const spot = JSON.parse(req.query["spot"]);
     console.log(spot);
     const timestamp = Date.now();
@@ -70,7 +71,6 @@ APP.get("/find", (req, res) => {
     if (food !== 'false') { findQuery['food'] = food }
     if (price !== 'false') { findQuery['price'] = price }
     if (distance !== 'false') { findQuery['distance'] = distance }
-    console.log(findQuery)
 
     restaurantsdb.find({}, (err, docs) => {
         if (docs.length !== 0) {
@@ -82,7 +82,7 @@ APP.get("/find", (req, res) => {
                     if (key === 'food' & spot[key] === findQuery[key]) {
                         keyCheck.push(true)
                     }
-                    else if (key === 'price' & spot[key] <= 10) {
+                    else if (key === 'price' & spot[key] <= 12) {
                         keyCheck.push(true)
                     }
                     else if (key === 'distance' & spot[key] <= 10) {
@@ -90,7 +90,6 @@ APP.get("/find", (req, res) => {
                     }
                 }
                 if (keyCheck.length === Object.keys(findQuery).length) {
-                    console.log(spot.name)
                     foundSpots.push(spot)
                 }
             })

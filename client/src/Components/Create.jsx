@@ -1,6 +1,7 @@
 import React from 'react';
 
 import Dropdown from './Dropdown';
+import Map from '../API/Map';
 import { updateAddress } from '../Utils/utils';
 
 import { OPTIONS_FOOD, OPTIONS_RATE } from '../Constants/constants';
@@ -19,7 +20,7 @@ const Create = ({ handleSubmitNewSpot }) => {
     const [rate, setRate] = React.useState(DEFAULT_RATE);
     const [address, setAddress] = React.useState(DEFAULT_ADDRESS);
 
-    const handleNameInput = (event) => { setNameInput(event.target.value); console.log("Name -> " + event.target.value); }
+    const handleNameInput = (event) => { setNameInput(event.target.value); }
     const handleIsVegeInput = () => {
         if (isVege === "true") {
             setIsVege("false");
@@ -30,10 +31,10 @@ const Create = ({ handleSubmitNewSpot }) => {
             console.log("Vege ->  true");
         }
     };
-    const handleFoodDP = (event) => { setFood(event.target.value); console.log("Choice -> " + event.target.value); };
-    const handlePriceInput = (event) => { setPrice(event.target.value); console.log("Price -> " + event.target.value); }
-    const handleDistanceInput = (event) => { setDistance(event.target.value); console.log("Distance -> " + event.target.value); }
-    const handleRateDP = (event) => { setRate(event.target.value); console.log("Choice -> " + event.target.value); };
+    const handleFoodDP = (event) => { setFood(event.target.value); };
+    const handlePriceInput = (event) => { setPrice(event.target.value); }
+    const handleDistanceInput = (event) => { setDistance(event.target.value); }
+    const handleRateDP = (event) => { setRate(event.target.value); };
 
     const handleStreetNum = (event) => { updateAddress("streetNum", event.target.value, address, setAddress); };
     const handleStreet = (event) => { updateAddress("street", event.target.value, address, setAddress); };
@@ -49,7 +50,6 @@ const Create = ({ handleSubmitNewSpot }) => {
             rate: rate,
             address: address
         }
-        console.log(newEntry)
         handleSubmitNewSpot(newEntry);
     }
 
@@ -104,12 +104,6 @@ const Create = ({ handleSubmitNewSpot }) => {
                         <tr>
                             <td>Favorites</td>
                         </tr>
-                    </tbody>
-                </table>
-            </div>
-            <div className='col'>
-                <table>
-                    <tbody>
                         <tr>
                             <td>#</td>
                             <td><input onChange={(event) => handleStreetNum(event)} /></td>
@@ -122,15 +116,16 @@ const Create = ({ handleSubmitNewSpot }) => {
                             <td>City</td>
                             <td><input onChange={(event) => handleCity(event)} /></td>
                         </tr>
+                        <tr height='50'></tr>
                         <tr>
-                            <td>Map</td>
+                            <td>
+                                <button onClick={() => { submitButton() }}>Submit !</button>
+                            </td>
                         </tr>
                     </tbody>
                 </table>
             </div>
-            <div>
-                <button onClick={() => { submitButton() }}>Submit !</button>
-            </div>
+            <Map />
         </div>
     );
 };

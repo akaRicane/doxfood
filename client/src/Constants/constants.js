@@ -1,4 +1,5 @@
 export const OPTIONS_FOOD = [
+    { "label": "", "value": "false" },
     { "label": "Microwave", "value": "Microwave" },
     { "label": "Italian", "value": "Italian" },
     { "label": "Brasserie", "value": "Brasserie" },

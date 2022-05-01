@@ -1,8 +1,8 @@
-$white: #ddd;
+$white: #fff;
 $black: #333;
 
 $color-home: #597DFF;
-$color-widget: #a8a8a7;
+$color-widget: #DBAD6A;
 $color-bgn: #435EBF;
 
 $dox-margin-pad: 0rem;
@@ -68,7 +68,7 @@ a:visited {
     }
 
     .tile {
-        background-color: $color-bgn;
+        background-color: $color-widget;
         display: grid;
         grid-template-columns: 3fr 1fr 1fr;
         height: 10vh;

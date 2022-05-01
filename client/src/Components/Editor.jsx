@@ -1,6 +1,7 @@
 import React from 'react';
 
 import Dropdown from './Dropdown';
+import Map from '../API/Map';
 
 import { OPTIONS_FOOD, OPTIONS_RATE } from '../Constants/constants';
 import { DEFAULT_ADDRESS } from '../Constants/default';
@@ -48,7 +49,7 @@ const Editor = ({ spot, handleSubmitEdittedSpot }) => {
         // eslint-disable-next-line
     }, [spot, updateAddressCallback])
 
-    const handleNameInput = (event) => { setName(event.target.value); console.log("Name -> " + event.target.value); }
+    const handleNameInput = (event) => { setName(event.target.value); }
     const handleIsVegeInput = () => {
         if (isVege === "true") {
             setIsVege("false");
@@ -59,10 +60,10 @@ const Editor = ({ spot, handleSubmitEdittedSpot }) => {
             console.log("Vege ->  true");
         }
     };
-    const handleFoodDP = (event) => { setFood(event.target.value); console.log("Choice -> " + event.target.value); };
-    const handlePriceInput = (event) => { setPrice(event.target.value); console.log("Price -> " + event.target.value); }
-    const handleDistanceInput = (event) => { setDistance(event.target.value); console.log("Distance -> " + event.target.value); }
-    const handleRateDP = (event) => { setRate(event.target.value); console.log("Choice -> " + event.target.value); };
+    const handleFoodDP = (event) => { setFood(event.target.value); };
+    const handlePriceInput = (event) => { setPrice(event.target.value); }
+    const handleDistanceInput = (event) => { setDistance(event.target.value); }
+    const handleRateDP = (event) => { setRate(event.target.value); };
 
     const handleStreetNum = (event) => { updateAddressCallback("streetNum", event.target.value); };
     const handleStreet = (event) => { updateAddressCallback("street", event.target.value); };
@@ -132,12 +133,6 @@ const Editor = ({ spot, handleSubmitEdittedSpot }) => {
                         <tr>
                             <td>Favorites</td>
                         </tr>
-                    </tbody>
-                </table>
-            </div>
-            <div className='col'>
-                <table>
-                    <tbody>
                         <tr>
                             <td>#</td>
                             <td><input onChange={(event) => handleStreetNum(event)} placeholder={address.streetNum} /></td>
@@ -150,15 +145,16 @@ const Editor = ({ spot, handleSubmitEdittedSpot }) => {
                             <td>City</td>
                             <td><input onChange={(event) => handleCity(event)} placeholder={address.city} /></td>
                         </tr>
+                        <tr height='50'></tr>
                         <tr>
-                            <td>Map</td>
+                            <td>
+                                <button onClick={() => { submitButton() }}>Save !</button>
+                            </td>
                         </tr>
                     </tbody>
                 </table>
             </div>
-            <div>
-                <button onClick={() => { submitButton() }}>Save !</button>
-            </div>
+            <Map />
         </div>
     );
 };
