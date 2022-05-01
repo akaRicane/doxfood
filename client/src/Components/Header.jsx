@@ -15,7 +15,7 @@ const Header = () => {
                     <span>📚</span>
                 </NavLink>
                 <NavLink to='/new'>
-                    <span>🧑‍🍳</span>
+                    <span>🧑</span>
                 </NavLink>
             </div>
         </div>

@@ -64,6 +64,7 @@ APP.get("/fetch", (req, res) => {
 
 APP.get("/find", (req, res) => {
     console.log("\nNew request to find spots");
+    console.log(req.query)
     const food = req.query["food"];
     const price = req.query["price"];
     const distance = req.query["distance"];
@@ -102,9 +103,9 @@ APP.get("/find", (req, res) => {
     })
 });
 
-const server = https.createServer({
-    key: fs.readFileSync(`${__dirname}/localhost-key.pem`, 'utf8'),
-    cert: fs.readFileSync(`${__dirname}/localhost.pem`, 'utf8')
-}, APP);
+// const server = https.createServer({
+//     key: fs.readFileSync(`${__dirname}/localhost-key.pem`, 'utf8'),
+//     cert: fs.readFileSync(`${__dirname}/localhost.pem`, 'utf8')
+// }, APP);
 
-server.listen(PORT, () => { console.log("Express.js server listening on PORT: " + PORT) });
+APP.listen(PORT, () => { console.log("Express.js server listening on PORT: " + PORT) });
