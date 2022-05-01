@@ -6,7 +6,7 @@ import Map from '../API/Map';
 import { findSpots } from '../API/toServer';
 
 import { OPTIONS_FOOD, OPTIONS_PRICE, OPTIONS_DISTANCE } from '../Constants/constants';
-import { DEFAULT_FOOD_CHOICE, DEFAULT_PRICE_CHOICE, DEFAULT_DISTANCE_CHOICE } from '../Constants/default';
+import { DEFAULT_FOOD_CHOICE, DEFAULT_PRICE_CHOICE, DEFAULT_DISTANCE_CHOICE, DEFAULT_PINMAP } from '../Constants/default';
 
 const Finder = () => {
 
@@ -14,6 +14,24 @@ const Finder = () => {
     const [foodChoice, setFoodChoice] = React.useState(DEFAULT_FOOD_CHOICE);
     const [priceChoice, setPriceChoice] = React.useState(DEFAULT_PRICE_CHOICE);
     const [distanceChoice, setDistanceChoice] = React.useState(DEFAULT_DISTANCE_CHOICE);
+    const [pinList, setPinList] = React.useState(DEFAULT_PINMAP);
+
+    React.useEffect(() => {
+        if (foundSpots.length > 0) {
+            var pinBuffer = [];
+            foundSpots.forEach(spot => {
+                var pin = {
+                    label: spot.name,
+                    coordinates: spot.coordinates
+                }
+                pinBuffer.push(pin);
+            })
+            setPinList(pinBuffer);
+        }
+        // else {
+        //     setPinList(DEFAULT_PINMAP);
+        // }
+    }, [foundSpots])
 
     const handleFoodDP = (event) => { setFoodChoice(event.target.value); };
     const handlePriceDP = (event) => { setPriceChoice(event.target.value); };
@@ -69,19 +87,17 @@ const Finder = () => {
                         <tr>
                             <td><h3 className='text'>Results</h3></td>
                         </tr>
-                        <tr>
                             {
                                 foundSpots.map((spot, idx) => {
                                     return (
-                                        <tr key={'finder-results-' + idx}><td>{spot.name}</td></tr>
+                                        <tr key={'finder-results-' + idx}><td key={'finder-results-cell' + idx}>{spot.name}</td></tr>
                                     )
                                 })
                             }
-                        </tr>
                     </tbody>
                 </table>
             </div>
-            <Map />
+            <Map pinList={pinList}/>
         </div>
     );
 };

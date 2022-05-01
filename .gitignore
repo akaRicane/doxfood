@@ -23,5 +23,5 @@ yarn-error.log*
 # personnal files
 /server/localhost-key.pem
 /server/localhost.pem
-/server/restaurants.db
+# /server/restaurants.db
 

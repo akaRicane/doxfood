@@ -2,9 +2,10 @@ import React from 'react';
 
 import Dropdown from './Dropdown';
 import Map from '../API/Map';
+import { openGMaps } from '../Utils/utils';
 
 import { OPTIONS_FOOD, OPTIONS_RATE } from '../Constants/constants';
-import { DEFAULT_ADDRESS } from '../Constants/default';
+import { DEFAULT_ADDRESS, DEFAULT_COORDINATES, DEFAULT_PINMAP } from '../Constants/default';
 
 const Editor = ({ spot, handleSubmitEdittedSpot }) => {
 
@@ -15,6 +16,8 @@ const Editor = ({ spot, handleSubmitEdittedSpot }) => {
     const [price, setPrice] = React.useState(spot.price);
     const [rate, setRate] = React.useState(spot.rate);
     const [address, setAddress] = React.useState(DEFAULT_ADDRESS);
+    const [coordinates, setCoordinates] = React.useState(DEFAULT_COORDINATES);
+    const [pinMap, setPinMap] = React.useState(DEFAULT_PINMAP);
 
     const updateAddressCallback = React.useCallback((item, value) => {
         var currentAddress = address;
@@ -34,6 +37,39 @@ const Editor = ({ spot, handleSubmitEdittedSpot }) => {
         setAddress(currentAddress);
     }, [address]);
 
+    const updateCoordinatesCallback = React.useCallback((item, value) => {
+        var currentCoords = coordinates;
+        switch (item) {
+            case "lon":
+                currentCoords.lon = value;
+                break;
+            case "lat":
+                currentCoords.lat = value;
+                break;
+            default:
+                break;
+        }
+        setCoordinates(currentCoords);
+    }, [coordinates]);
+
+    const updatePinMapCallback = React.useCallback((item, value) => {
+        var currentPin = pinMap;
+        switch (item) {
+            case "label":
+                currentPin.label = value;
+                break;
+            case "lon":
+                currentPin.coordinates.lon = value;
+                break;
+            case "lat":
+                currentPin.coordinates.lat = value;
+                break;
+            default:
+                break;
+        }
+        setPinMap(currentPin);
+    }, [pinMap]);
+
     React.useEffect(() => {
         if (spot.name !== undefined) {
             setName(spot.name);
@@ -45,9 +81,14 @@ const Editor = ({ spot, handleSubmitEdittedSpot }) => {
             updateAddressCallback("streetNum", spot.address.streetNum);
             updateAddressCallback("street", spot.address.street);
             updateAddressCallback("city", spot.address.city);
+            updateCoordinatesCallback("lon", spot.coordinates.lon);
+            updateCoordinatesCallback("lat", spot.coordinates.lat);
+            updatePinMapCallback("label", spot.name);
+            updatePinMapCallback("lon", spot.coordinates.lon);
+            updatePinMapCallback("lat", spot.coordinates.lat);
         }
         // eslint-disable-next-line
-    }, [spot, updateAddressCallback])
+    }, [spot, updateAddressCallback, updateCoordinatesCallback, updatePinMapCallback])
 
     const handleNameInput = (event) => { setName(event.target.value); }
     const handleIsVegeInput = () => {
@@ -68,7 +109,10 @@ const Editor = ({ spot, handleSubmitEdittedSpot }) => {
     const handleStreetNum = (event) => { updateAddressCallback("streetNum", event.target.value); };
     const handleStreet = (event) => { updateAddressCallback("street", event.target.value); };
     const handleCity = (event) => { updateAddressCallback("city", event.target.value); };
-
+    const handleLongitude = (event) => { updateCoordinatesCallback("lon", event.target.value); };
+    const handleLatitude = (event) => { updateCoordinatesCallback("lat", event.target.value); };
+    const handleCheckGMapsBtn = () => { openGMaps(address); };
+    
     const submitButton = () => {
         const newEntry = {
             name: name,
@@ -77,8 +121,10 @@ const Editor = ({ spot, handleSubmitEdittedSpot }) => {
             price: price,
             distance: distance,
             rate: rate,
-            address: address
+            address: address,
+            coordinates: coordinates
         }
+        console.log(newEntry)
         handleSubmitEdittedSpot(newEntry);
     }
 
@@ -145,6 +191,19 @@ const Editor = ({ spot, handleSubmitEdittedSpot }) => {
                             <td>City</td>
                             <td><input onChange={(event) => handleCity(event)} placeholder={address.city} /></td>
                         </tr>
+                        <tr height='20'></tr>
+                        <tr>
+                            <td></td>
+                            <td><button onClick={() => handleCheckGMapsBtn()}>Check coordinates</button> </td>
+                        </tr>
+                        <tr>
+                            <td>Lon</td>
+                            <td><input onChange={(event) => handleLongitude(event)} placeholder={coordinates.lon}/></td>
+                        </tr>
+                        <tr>
+                            <td>Lat</td>
+                            <td><input onChange={(event) => handleLatitude(event)} placeholder={coordinates.lat}/></td>
+                        </tr>
                         <tr height='50'></tr>
                         <tr>
                             <td>
@@ -154,7 +213,7 @@ const Editor = ({ spot, handleSubmitEdittedSpot }) => {
                     </tbody>
                 </table>
             </div>
-            <Map />
+            <Map pinList={pinMap}/>
         </div>
     );
 };

@@ -7,14 +7,15 @@ export const OPTIONS_FOOD = [
     { "label": "Japonese", "value": "Japonese" },
     { "label": "Chinese", "value": "Chinese" },
     { "label": "Thaï", "value": "Thaï" },
+    { "label": "Saladbar", "value": "Saladbar" },
 ];
 
 export const OPTIONS_RATE = [
     { "label": "☆☆☆☆☆", "value": "☆☆☆☆☆" },
-    { "label": "☆☆☆☆★", "value": "☆☆☆☆★" },
-    { "label": "☆☆☆★★", "value": "☆☆☆★★" },
-    { "label": "☆☆★★★", "value": "☆☆★★★" },
-    { "label": "☆★★★★", "value": "☆★★★★" },
+    { "label": "★☆☆☆☆", "value": "★☆☆☆☆" },
+    { "label": "★★☆☆☆", "value": "★★☆☆☆" },
+    { "label": "★★★☆☆", "value": "★★★☆☆" },
+    { "label": "★★★★☆", "value": "★★★★☆" },
     { "label": "★★★★★", "value": "★★★★★" },
 ];
 
