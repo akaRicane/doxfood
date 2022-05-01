@@ -1,7 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 
-const RestaurantTile = ({ spot }) => {
+const Tile = ({ spot }) => {
 
     const [spotInfos, setSpotInfos] = React.useState({});
     const [spotId, setSpotId] = React.useState({});
@@ -30,4 +30,4 @@ const RestaurantTile = ({ spot }) => {
     );
 };
 
-export default RestaurantTile;
+export default Tile;

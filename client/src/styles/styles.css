@@ -29,8 +29,8 @@ a:visited {
   background-color: #597DFF;
   display: -ms-grid;
   display: grid;
-  -ms-grid-rows: 2fr 5fr 1fr;
-      grid-template-rows: 2fr 5fr 1fr;
+  -ms-grid-rows: 1fr 5fr 1fr;
+      grid-template-rows: 1fr 5fr 1fr;
   -webkit-box-pack: center;
       -ms-flex-pack: center;
           justify-content: center;
@@ -66,31 +66,34 @@ a:visited {
   -webkit-box-align: center;
       -ms-flex-align: center;
           align-items: center;
-  min-width: 300px;
+  min-width: 45vw;
 }
 
 .app .tile {
-  background-color: #a8a8a7;
+  background-color: #435EBF;
   display: -ms-grid;
   display: grid;
   -ms-grid-columns: 3fr 1fr 1fr;
       grid-template-columns: 3fr 1fr 1fr;
   height: 10vh;
   max-height: 40px;
-  min-width: 85vw;
-  margin-top: 10px;
+  min-width: 70vw;
+  margin-top: 1rem;
+  -ms-flex-line-pack: distribute;
+      align-content: space-around;
+  border-radius: 20px;
 }
 
 .app .tile .tile-text {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
   -webkit-box-pack: center;
       -ms-flex-pack: center;
           justify-content: center;
-  -webkit-box-align: left;
-      -ms-flex-align: left;
-          align-items: left;
 }
 
 .header {
@@ -122,5 +125,10 @@ a:visited {
   -webkit-box-align: center;
       -ms-flex-align: center;
           align-items: center;
+}
+
+.leaflet-container {
+  width: 100%;
+  height: 100%;
 }
 /*# sourceMappingURL=styles.css.map */

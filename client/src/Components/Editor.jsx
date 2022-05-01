@@ -1,25 +1,54 @@
 import React from 'react';
 
 import Dropdown from './Dropdown';
-import { updateAddress } from '../Utils/utils';
 
 import { OPTIONS_FOOD, OPTIONS_RATE } from '../Constants/constants';
-import {
-    DEFAULT_NAME, DEFAULT_DISTANCE, DEFAULT_FOOD,
-    DEFAULT_ISVEGE, DEFAULT_ADDRESS, DEFAULT_PRICE, DEFAULT_RATE
-} from '../Constants/default';
+import { DEFAULT_ADDRESS } from '../Constants/default';
 
-const Create = ({ handleSubmitNewSpot }) => {
+const Editor = ({ spot, handleSubmitEdittedSpot }) => {
 
-    const [nameInput, setNameInput] = React.useState(DEFAULT_NAME);
-    const [distance, setDistance] = React.useState(DEFAULT_DISTANCE);
-    const [food, setFood] = React.useState(DEFAULT_FOOD);
-    const [isVege, setIsVege] = React.useState(DEFAULT_ISVEGE);
-    const [price, setPrice] = React.useState(DEFAULT_PRICE);
-    const [rate, setRate] = React.useState(DEFAULT_RATE);
+    const [name, setName] = React.useState(spot.name);
+    const [distance, setDistance] = React.useState(spot.distance);
+    const [food, setFood] = React.useState(spot.food);
+    const [isVege, setIsVege] = React.useState(spot.isVege);
+    const [price, setPrice] = React.useState(spot.price);
+    const [rate, setRate] = React.useState(spot.rate);
     const [address, setAddress] = React.useState(DEFAULT_ADDRESS);
 
-    const handleNameInput = (event) => { setNameInput(event.target.value); console.log("Name -> " + event.target.value); }
+    const updateAddressCallback = React.useCallback((item, value) => {
+        var currentAddress = address;
+        switch (item) {
+            case "streetNum":
+                currentAddress.streetNum = value;
+                break;
+            case "street":
+                currentAddress.street = value;
+                break;
+            case "city":
+                currentAddress.city = value;
+                break;
+            default:
+                break;
+        }
+        setAddress(currentAddress);
+    }, [address]);
+
+    React.useEffect(() => {
+        if (spot.name !== undefined) {
+            setName(spot.name);
+            setIsVege(Boolean(spot.isVege));
+            setFood(spot.food);
+            setPrice(spot.price);
+            setDistance(spot.distance);
+            setRate(spot.rate);
+            updateAddressCallback("streetNum", spot.address.streetNum);
+            updateAddressCallback("street", spot.address.street);
+            updateAddressCallback("city", spot.address.city);
+        }
+        // eslint-disable-next-line
+    }, [spot, updateAddressCallback])
+
+    const handleNameInput = (event) => { setName(event.target.value); console.log("Name -> " + event.target.value); }
     const handleIsVegeInput = () => {
         if (isVege === "true") {
             setIsVege("false");
@@ -35,13 +64,13 @@ const Create = ({ handleSubmitNewSpot }) => {
     const handleDistanceInput = (event) => { setDistance(event.target.value); console.log("Distance -> " + event.target.value); }
     const handleRateDP = (event) => { setRate(event.target.value); console.log("Choice -> " + event.target.value); };
 
-    const handleStreetNum = (event) => { updateAddress("streetNum", event.target.value, address, setAddress); };
-    const handleStreet = (event) => { updateAddress("street", event.target.value, address, setAddress); };
-    const handleCity = (event) => { updateAddress("city", event.target.value, address, setAddress); };
+    const handleStreetNum = (event) => { updateAddressCallback("streetNum", event.target.value); };
+    const handleStreet = (event) => { updateAddressCallback("street", event.target.value); };
+    const handleCity = (event) => { updateAddressCallback("city", event.target.value); };
 
     const submitButton = () => {
         const newEntry = {
-            name: nameInput,
+            name: name,
             food: food,
             isVege: isVege,
             price: price,
@@ -49,8 +78,7 @@ const Create = ({ handleSubmitNewSpot }) => {
             rate: rate,
             address: address
         }
-        console.log(newEntry)
-        handleSubmitNewSpot(newEntry);
+        handleSubmitEdittedSpot(newEntry);
     }
 
     return (
@@ -60,7 +88,7 @@ const Create = ({ handleSubmitNewSpot }) => {
                     <tbody>
                         <tr>
                             <td>Name</td>
-                            <td><input onChange={(event) => handleNameInput(event)} /></td>
+                            <td><input onChange={(event) => handleNameInput(event)} placeholder={name} /></td>
                         </tr>
                         <tr>
                             <td>Food</td>
@@ -75,16 +103,16 @@ const Create = ({ handleSubmitNewSpot }) => {
                         </tr>
                         <tr>
                             <td>Vege</td>
-                            <td><input type='checkbox' onChange={() => handleIsVegeInput()} /></td>
+                            <td><input type='checkbox' onChange={() => handleIsVegeInput()} value={isVege} /></td>
                         </tr>
                         <tr>
                             <td>Price</td>
-                            <td><input type='range' min='5' max='100' onChange={(event) => handlePriceInput(event)} /></td>
+                            <td><input type='range' min='5' max='100' onChange={(event) => handlePriceInput(event)} value={price} /></td>
                             <td>{price} €</td>
                         </tr>
                         <tr>
                             <td>Distance</td>
-                            <td><input type='range' min='0' max='30' onChange={(event) => handleDistanceInput(event)} /></td>
+                            <td><input type='range' min='0' max='30' onChange={(event) => handleDistanceInput(event)} value={distance} /></td>
                             <td>{distance} min</td>
                         </tr>
                         <tr>
@@ -112,15 +140,15 @@ const Create = ({ handleSubmitNewSpot }) => {
                     <tbody>
                         <tr>
                             <td>#</td>
-                            <td><input onChange={(event) => handleStreetNum(event)} /></td>
+                            <td><input onChange={(event) => handleStreetNum(event)} placeholder={address.streetNum} /></td>
                         </tr>
                         <tr>
                             <td>Street</td>
-                            <td><input onChange={(event) => handleStreet(event)} /></td>
+                            <td><input onChange={(event) => handleStreet(event)} placeholder={address.street} /></td>
                         </tr>
                         <tr>
                             <td>City</td>
-                            <td><input onChange={(event) => handleCity(event)} /></td>
+                            <td><input onChange={(event) => handleCity(event)} placeholder={address.city} /></td>
                         </tr>
                         <tr>
                             <td>Map</td>
@@ -129,10 +157,10 @@ const Create = ({ handleSubmitNewSpot }) => {
                 </table>
             </div>
             <div>
-                <button onClick={() => { submitButton() }}>Submit !</button>
+                <button onClick={() => { submitButton() }}>Save !</button>
             </div>
         </div>
     );
 };
 
-export default Create;
+export default Editor;

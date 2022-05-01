@@ -30,14 +30,14 @@ a:visited {
 
     .col {
         @include centered;
-        min-width: 300px;
+        min-width: 45vw;
     }
 }
 
 @mixin pages {
     background-color: $color-home;
     display: grid;
-    grid-template-rows: 2fr 5fr 1fr;
+    grid-template-rows: 1fr 5fr 1fr;
     justify-content: center;
 
     .text {
@@ -66,23 +66,24 @@ a:visited {
     .home, .new, .list, .edit {
         @include pages;
     }
-    
+
     .tile {
-        background-color: $color-widget;
+        background-color: $color-bgn;
         display: grid;
         grid-template-columns: 3fr 1fr 1fr;
         height: 10vh;
         max-height: 40px;
-        min-width: 85vw;
-        margin-top: 10px;
+        min-width: 70vw;
+        margin-top: 1rem;
+        align-content: space-around;
+        border-radius: 20px;
         
         .tile-text {
             display: flex;
+            align-items: center;
             justify-content: center;
-            align-items: left;
         }
     }
-
 }
 
 .header {

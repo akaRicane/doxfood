@@ -1,61 +1,24 @@
 import React from 'react';
-import axios from 'axios';
-import Dropdown from './Dropdown';
 
-import Map from '../Components/Map';
+import Dropdown from './Dropdown';
+import Map from '../API/Map';
+
+import { findSpots } from '../API/toServer';
+
+import { OPTIONS_FOOD, OPTIONS_PRICE, OPTIONS_DISTANCE } from '../Constants/constants';
+import { DEFAULT_FOOD_CHOICE, DEFAULT_PRICE_CHOICE, DEFAULT_DISTANCE_CHOICE } from '../Constants/default';
 
 const Finder = () => {
 
-    const [foundSpots, setFoundSpots] = React.useState([])
-
-    const [foodChoice, setFoodChoice] = React.useState('false')
-    const foodOptions = [
-        { "label": " ", "value": "false" },
-        { "label": "Microwave", "value": "Microwave" },
-        { "label": "Italian", "value": "Italian" },
-        { "label": "Brasserie", "value": "Brasserie" },
-        { "label": "Burgers", "value": "Burgers" },
-        { "label": "Japonese", "value": "Japonese" },
-        { "label": "Chinese", "value": "Chinese" },
-        { "label": "Thaï", "value": "Thaï" }
-    ];
-
-    const [priceChoice, setPriceChoice] = React.useState('false')
-    const priceOptions = [
-        { "label": " ", "value": "false" },
-        { "label": "Cheap", "value": "cheap" }
-    ];
-
-    const [distanceChoice, setDistanceChoice] = React.useState('false')
-    const distanceOptions = [
-        { "label": " ", "value": "false" },
-        { "label": "Close", "value": "close" }
-    ];
+    const [foundSpots, setFoundSpots] = React.useState([]);
+    const [foodChoice, setFoodChoice] = React.useState(DEFAULT_FOOD_CHOICE);
+    const [priceChoice, setPriceChoice] = React.useState(DEFAULT_PRICE_CHOICE);
+    const [distanceChoice, setDistanceChoice] = React.useState(DEFAULT_DISTANCE_CHOICE);
 
     const handleFoodDP = (event) => { setFoodChoice(event.target.value); console.log("Food -> " + event.target.value); };
     const handlePriceDP = (event) => { setPriceChoice(event.target.value); console.log("Price -> " + event.target.value); };
     const handleDistanceDP = (event) => { setDistanceChoice(event.target.value); console.log("Distance -> " + event.target.value); };
-    const handleFindBtn = () => { findSpots(); };
-
-    const findSpots = () => {
-        console.log('Query to find spots to server ...');
-        axios.get('https://localhost:3001/find', { params: { "food": foodChoice, "price": priceChoice, "distance": distanceChoice } })
-            .then(res => {
-                const spotsList = res.data;
-                if (spotsList.length === 0) {
-                    alert("No spots found with queried params");
-                }
-                else {
-                    console.log(spotsList);
-                    setFoundSpots(spotsList);
-                }
-            })
-            .catch(err => {
-                console.log("... server request failed !");
-                console.log(err);
-            });
-
-    };
+    const handleFindBtn = () => { findSpots(foodChoice, priceChoice, distanceChoice, setFoundSpots); };
 
     return (
         <div className='module'>
@@ -75,7 +38,7 @@ const Finder = () => {
                             <td>
                                 <Dropdown
                                     label=""
-                                    options={foodOptions}
+                                    options={OPTIONS_FOOD}
                                     value={foodChoice}
                                     onChange={handleFoodDP}
                                 />
@@ -86,7 +49,7 @@ const Finder = () => {
                             <td>
                                 <Dropdown
                                     label=""
-                                    options={priceOptions}
+                                    options={OPTIONS_PRICE}
                                     value={priceChoice}
                                     onChange={handlePriceDP}
                                 />
@@ -97,7 +60,7 @@ const Finder = () => {
                             <td>
                                 <Dropdown
                                     label=""
-                                    options={distanceOptions}
+                                    options={OPTIONS_DISTANCE}
                                     value={distanceChoice}
                                     onChange={handleDistanceDP}
                                 />
