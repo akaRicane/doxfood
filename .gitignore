@@ -1,5 +1,9 @@
 /client/node_modules
 /server/node_modules
+/flask/node_modules
+/flask/venv
+/flask/__pycache__
+
 /.pnp
 .pnp.js
 

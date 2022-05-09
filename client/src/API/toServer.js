@@ -1,8 +1,10 @@
 import axios from "axios";
 
+const SERVER_ADDR = "http://127.0.0.1:5000/";
+
 export const addNewSpot = (newEntry) => {
     console.log('Query to add entry to server ...');
-    axios.get('https://localhost:3001/create', { params: { "spot": newEntry } })
+    axios.get(SERVER_ADDR + 'create', { params: { "spot": newEntry } })
         .then(res => {
             console.log("Added to database: " + res.data);
         })
@@ -14,7 +16,7 @@ export const addNewSpot = (newEntry) => {
 
 export const findSpots = (foodChoice, priceChoice, distanceChoice, setFoundSpots) => {
     console.log('Query to find spots to server ...');
-    axios.get('https://localhost:3001/find', { params: { "food": foodChoice, "price": priceChoice, "distance": distanceChoice } })
+    axios.get(SERVER_ADDR + 'find', { params: { "food": foodChoice, "price": priceChoice, "distance": distanceChoice } })
         .then(res => {
             const spotsList = res.data;
             if (spotsList.length === 0) {
@@ -33,7 +35,7 @@ export const findSpots = (foodChoice, priceChoice, distanceChoice, setFoundSpots
 
 export const fetchSpotInfos = (spotId, setSpot) => {
     console.log('Query to fetch restaurant infos to server ...');
-    axios.get('https://localhost:3001/fetch', { params: { "id": spotId } })
+    axios.get(SERVER_ADDR + 'fetch', { params: { "id": spotId } })
         .then(res => {
             console.log("Fetch restaurant: " + res.data.restaurant.name);
             setSpot(res.data.restaurant);
@@ -47,7 +49,7 @@ export const fetchSpotInfos = (spotId, setSpot) => {
 
 export const editSpotInfos = (spotId, newEntry) => {
     console.log('Query to edit restaurant infos to server ...');
-    axios.get('https://localhost:3001/edit', { params: { "id": spotId, "spot": newEntry } })
+    axios.get(SERVER_ADDR + 'edit', { params: { "id": spotId, "spot": newEntry } })
         .then(res => {
             console.log("Editted restaurant: " + res.data);
         })
@@ -59,7 +61,7 @@ export const editSpotInfos = (spotId, newEntry) => {
 
 export const requestRestaurantsList = (setRestaurantsList) => {
     console.log('Request restaurants list to server ...');
-    axios.get('https://localhost:3001/list')
+    axios.get(SERVER_ADDR + 'list')
     .then(res => {
         setRestaurantsList(res.data.list);
         console.log("restaurants list is loaded ! (found " + res.data.list.length + ")");
